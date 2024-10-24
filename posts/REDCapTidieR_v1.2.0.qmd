@@ -1,0 +1,126 @@
+---
+title: REDCapTidieR 1.2.0 🎉
+image: images/REDCapTidieR.png
+author: Stephan Kadauke, Ezra Porter, Richard Hanna
+date: "2024-10-24"
+description: "REDCapTidieR v1.2.0 Release"
+categories:
+  - Open Source
+  - REDCap
+  - REDCapTidieR
+  - R
+format: 
+   html:
+     df-print: paged
+---
+
+We’re thrilled to announce the release of [REDCapTidieR](https://chop-cgtinformatics.github.io/REDCapTidieR/) v1.2.0 on CRAN. Since our 1.0.0 release, we've updated the core packagage with new features and improvements designed to make your data extraction and tidying processes smoother and more efficient than ever. Let’s dive into what’s new!
+
+You can install the package from CRAN with:
+
+```{r, eval = FALSE}
+install.packages("REDCapTidieR")
+```
+
+
+## 🛠️ New Features to Support Supertibble Post-Processing
+
+### ✅ Introducing `combine_checkboxes()`: Simplify Your Checkbox Data
+
+Checkbox fields (also known as multi-select) in REDCap are notoriously challenging to work with since they become a separate field for each selection option in the extracted output. Most of the time this is useful and REDCapTidieR automatically handles checkbox fields for you. Let's refresh and look at a simple example below with a standard output. We'll use a pared-down version of a supertibble containing a single non-repeating instrument with REDCap data and metadata related to study participant race:
+
+```{r, echo=FALSE}
+demographic_data <- tibble::tribble(
+  ~"study_id", ~"race___1", ~"race___2", ~"race___3", ~"race___4", ~"race___5", ~"race___6",
+  1, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
+  2, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE,
+  3, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
+)
+
+race_data <- "1, American Indian/Alaska Native | 2, Asian | 3, Native Hawaiian or Other Pacific Islander | 4, Black or African American | 5, White | 6, Other"
+
+demographic_metadata <- tibble::tribble(
+  ~"field_name", ~"field_type", ~"select_choices_or_calculations",
+  "study_id", "text", NA,
+  "race___1", "checkbox", race_data,
+  "race___2", "checkbox", race_data,
+  "race___3", "checkbox", race_data,
+  "race___4", "checkbox", race_data,
+  "race___5", "checkbox", race_data,
+  "race___6", "checkbox", race_data
+)
+
+supertbl <- tibble::tribble(
+  ~"redcap_form_name", ~"redcap_data", ~"redcap_metadata",
+  "demographic_instrument", demographic_data, demographic_metadata
+)
+
+class(supertbl) <- c("redcap_supertbl", class(supertbl))
+```
+
+
+```{r}
+#| warning: false
+library(REDCapTidieR)
+
+supertbl
+```
+
+Now let's inspect the data tibble for the `demographic_instrument`:
+
+```{r}
+supertbl |> 
+  extract_tibble("demographic_instrument")
+```
+
+Notice how REDCapTidieR automatically handles the original multi/checkbox variable, `race`, and splits it into six new fields representing the selection options starting with `race___1` and ending with `race___6`. 
+
+Sometimes this is enough, but in this example it may be better to consolidate these fields under a single variable. In the example above, a desired output could be:
+
+```{r}
+tibble::tribble(
+  ~"study_id", ~"race",
+  1, "American Indian/Alaska Native",
+  2, "Multiple",
+  3, "None"
+)
+```
+
+In this scenario, single selection options persist in the consolidated column, but multiple selections get assigned a new label. Let's use `combine_checkboxes()` to handle this:
+
+```{r}
+combine_checkboxes(
+    supertbl = supertbl,
+    tbl = "demographic_instrument",
+    cols = starts_with("race"),
+    multi_value_label = "Multiple",
+    values_fill = "None"
+) |> 
+  extract_tibble("demographic_instrument")
+```
+
+The new variable we modeled above appears at the end of the data tibble! If you are used to the `tidyr` package, you may notice that _some_ inspiration is taken here from the syntax for pivoting functions. It's important to note that [`combine_checkboxes()`](https://chop-cgtinformatics.github.io/REDCapTidieR/reference/combine_checkboxes.html) both accepts and returns a supertibble object, so to view your changes you will need to specifically inspect the data tibble in question.
+
+## Mixed Structure Instrument Support
+
+In the release of REDCapTidieR v1.1.0, we introduced support for what we call "mixed structure" instruments. These occur when the same instrument is designated as both a repeating and nonrepeating instrument. By default mixed structure instruments will result in a `read_redcap()` error because of how it clashes with the "[tidy](https://chop-cgtinformatics.github.io/REDCapTidieR/articles/glossary.html#tidy)" principles the package is built on.
+
+However, sometimes mixed structure instruments are unavoidable. By setting `allow_mixed_structure = TRUE` in `read_redcap()`, users can now include mixed structure data tibbles in their supertibble outputs. Nonrepeating variants of mixed structure instruments will be treated as repeating instruments with a single repeating instance.
+
+For more information, check out the [Mixed Structure Instruments](https://chop-cgtinformatics.github.io/REDCapTidieR/articles/diving_deeper.html#mixed-structure-instruments) section of the Diving Deeper vignette.
+
+## 📚 New Vignette: "Using Labelled Vectors with REDCapTidieR"
+
+REDCapTidieR has supported [labelled](https://chop-cgtinformatics.github.io/REDCapTidieR/articles/glossary.html#labelled) data for a while, and offers [several functions](https://chop-cgtinformatics.github.io/REDCapTidieR/reference/index.html#apply-variable-labels) to help users apply labels. We've expanded on this documentation by adding a comprehensive new vignette titled ["Using Labelled Vectors with REDCapTidieR"](https://chop-cgtinformatics.github.io/REDCapTidieR/articles/labelled.html) written to guide you through leveraging labelled vectors to maintain meaningful metadata in your datasets, enhancing both readability and usability.
+
+## 🔎 New Supertibble Column Information
+
+The supertibble output now includes a new metadata column, `form_complete_pct`, which shows the percentage of a given instrument that has a form status marked as "Complete" (green), giving you a quick overview of your data completeness.
+
+`event_name` has now been added to the columns under the `redcap_events` metadata column, displaying the event label for each REDCap event in longitudinal projects.
+
+For projects with repeating events, a new `repeat_type` column has been added to display whether the associated instrument under `redcap_events` is a "repeat_together", "repeat_separate", or "nonrepeating" event.
+
+## 👋 Until the Next Update
+
+Thank you for being a part of the REDCapTidieR user base! Your feedback is always appreciated and drives us to keep making a better package! 🎉

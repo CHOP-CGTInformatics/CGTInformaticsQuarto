@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Stephan Kadauke, Ezra Porter, Richard Hanna">
+<meta name="dcterms.date" content="2024-10-24">
+<meta name="description" content="REDCapTidieR v1.2.0 Release">
 
-<title>Welcome to CGT Informatics! – Cell and Gene Therapy Informatics</title>
+<title>REDCapTidieR 1.2.0 🎉 – Cell and Gene Therapy Informatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +23,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -66,6 +103,8 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 </head>
@@ -77,10 +116,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./img/cgt_informatics_bg_removed.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/cgt_informatics_bg_removed.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Cell and Gene Therapy Informatics</span>
     </a>
   </div>
@@ -91,15 +130,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
 </ul>
@@ -120,22 +159,58 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#new-features-to-support-supertibble-post-processing" id="toc-new-features-to-support-supertibble-post-processing" class="nav-link active" data-scroll-target="#new-features-to-support-supertibble-post-processing">🛠️ New Features to Support Supertibble Post-Processing</a>
+  <ul class="collapse">
+  <li><a href="#introducing-combine_checkboxes-simplify-your-checkbox-data" id="toc-introducing-combine_checkboxes-simplify-your-checkbox-data" class="nav-link" data-scroll-target="#introducing-combine_checkboxes-simplify-your-checkbox-data">✅ Introducing <code>combine_checkboxes()</code>: Simplify Your Checkbox Data</a></li>
+  </ul></li>
+  <li><a href="#mixed-structure-instrument-support" id="toc-mixed-structure-instrument-support" class="nav-link" data-scroll-target="#mixed-structure-instrument-support">Mixed Structure Instrument Support</a></li>
+  <li><a href="#new-vignette-using-labelled-vectors-with-redcaptidier" id="toc-new-vignette-using-labelled-vectors-with-redcaptidier" class="nav-link" data-scroll-target="#new-vignette-using-labelled-vectors-with-redcaptidier">📚 New Vignette: “Using Labelled Vectors with REDCapTidieR”</a></li>
+  <li><a href="#new-supertibble-column-information" id="toc-new-supertibble-column-information" class="nav-link" data-scroll-target="#new-supertibble-column-information">🔎 New Supertibble Column Information</a></li>
+  <li><a href="#until-the-next-update" id="toc-until-the-next-update" class="nav-link" data-scroll-target="#until-the-next-update">👋 Until the Next Update</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome to CGT Informatics!</h1>
-</div>
+<h1 class="title">REDCapTidieR 1.2.0 🎉</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Open Source</div>
+    <div class="quarto-category">REDCap</div>
+    <div class="quarto-category">REDCapTidieR</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    REDCapTidieR v1.2.0 Release
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stephan Kadauke, Ezra Porter, Richard Hanna </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 24, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -145,15 +220,100 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/cgt_informatics_bg_removed.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="250"></p>
-</figure>
+<p>We’re thrilled to announce the release of <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/">REDCapTidieR</a> v1.2.0 on CRAN. Since our 1.0.0 release, we’ve updated the core packagage with new features and improvements designed to make your data extraction and tidying processes smoother and more efficient than ever. Let’s dive into what’s new!</p>
+<p>You can install the package from CRAN with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"REDCapTidieR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Welcome to the home page for the Children’s Hospital of Philadelphia’s Cell &amp; Gene Therapy Informatics site.</p>
-<p>This website serves as a repository for publicly available and open-source software, news, and publications.</p>
+<section id="new-features-to-support-supertibble-post-processing" class="level2">
+<h2 class="anchored" data-anchor-id="new-features-to-support-supertibble-post-processing">🛠️ New Features to Support Supertibble Post-Processing</h2>
+<section id="introducing-combine_checkboxes-simplify-your-checkbox-data" class="level3">
+<h3 class="anchored" data-anchor-id="introducing-combine_checkboxes-simplify-your-checkbox-data">✅ Introducing <code>combine_checkboxes()</code>: Simplify Your Checkbox Data</h3>
+<p>Checkbox fields (also known as multi-select) in REDCap are notoriously challenging to work with since they become a separate field for each selection option in the extracted output. Most of the time this is useful and REDCapTidieR automatically handles checkbox fields for you. Let’s refresh and look at a simple example below with a standard output. We’ll use a pared-down version of a supertibble containing a single non-repeating instrument with REDCap data and metadata related to study participant race:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapTidieR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>supertbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["redcap_form_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["redcap_data"],"name":[2],"type":["list"],"align":["right"]},{"label":["redcap_metadata"],"name":[3],"type":["list"],"align":["right"]}],"data":[{"1":"demographic_instrument","2":"<tibble[,7]>","3":"<tibble[,3]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Now let’s inspect the data tibble for the <code>demographic_instrument</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>supertbl <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_tibble</span>(<span class="st">"demographic_instrument"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["study_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["race___1"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["race___2"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["race___3"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["race___4"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["race___5"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["race___6"],"name":[7],"type":["lgl"],"align":["right"]}],"data":[{"1":"1","2":"TRUE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"FALSE"},{"1":"2","2":"TRUE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"TRUE"},{"1":"3","2":"FALSE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Notice how REDCapTidieR automatically handles the original multi/checkbox variable, <code>race</code>, and splits it into six new fields representing the selection options starting with <code>race___1</code> and ending with <code>race___6</code>.</p>
+<p>Sometimes this is enough, but in this example it may be better to consolidate these fields under a single variable. In the example above, a desired output could be:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span><span class="st">"study_id"</span>, <span class="sc">~</span><span class="st">"race"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"American Indian/Alaska Native"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">"Multiple"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">"None"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["study_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["race"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"American Indian/Alaska Native"},{"1":"2","2":"Multiple"},{"1":"3","2":"None"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>In this scenario, single selection options persist in the consolidated column, but multiple selections get assigned a new label. Let’s use <code>combine_checkboxes()</code> to handle this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">combine_checkboxes</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">supertbl =</span> supertbl,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tbl =</span> <span class="st">"demographic_instrument"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"race"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">multi_value_label =</span> <span class="st">"Multiple"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="st">"None"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_tibble</span>(<span class="st">"demographic_instrument"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["study_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["race___1"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["race___2"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["race___3"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["race___4"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["race___5"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["race___6"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["race"],"name":[8],"type":["fct"],"align":["left"]}],"data":[{"1":"1","2":"TRUE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"FALSE","8":"American Indian/Alaska Native"},{"1":"2","2":"TRUE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"TRUE","8":"Multiple"},{"1":"3","2":"FALSE","3":"FALSE","4":"FALSE","5":"FALSE","6":"FALSE","7":"FALSE","8":"None"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>The new variable we modeled above appears at the end of the data tibble! If you are used to the <code>tidyr</code> package, you may notice that <em>some</em> inspiration is taken here from the syntax for pivoting functions. It’s important to note that <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/reference/combine_checkboxes.html"><code>combine_checkboxes()</code></a> both accepts and returns a supertibble object, so to view your changes you will need to specifically inspect the data tibble in question.</p>
+</section>
+</section>
+<section id="mixed-structure-instrument-support" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-structure-instrument-support">Mixed Structure Instrument Support</h2>
+<p>In the release of REDCapTidieR v1.1.0, we introduced support for what we call “mixed structure” instruments. These occur when the same instrument is designated as both a repeating and nonrepeating instrument. By default mixed structure instruments will result in a <code>read_redcap()</code> error because of how it clashes with the “<a href="https://chop-cgtinformatics.github.io/REDCapTidieR/articles/glossary.html#tidy">tidy</a>” principles the package is built on.</p>
+<p>However, sometimes mixed structure instruments are unavoidable. By setting <code>allow_mixed_structure = TRUE</code> in <code>read_redcap()</code>, users can now include mixed structure data tibbles in their supertibble outputs. Nonrepeating variants of mixed structure instruments will be treated as repeating instruments with a single repeating instance.</p>
+<p>For more information, check out the <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/articles/diving_deeper.html#mixed-structure-instruments">Mixed Structure Instruments</a> section of the Diving Deeper vignette.</p>
+</section>
+<section id="new-vignette-using-labelled-vectors-with-redcaptidier" class="level2">
+<h2 class="anchored" data-anchor-id="new-vignette-using-labelled-vectors-with-redcaptidier">📚 New Vignette: “Using Labelled Vectors with REDCapTidieR”</h2>
+<p>REDCapTidieR has supported <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/articles/glossary.html#labelled">labelled</a> data for a while, and offers <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/reference/index.html#apply-variable-labels">several functions</a> to help users apply labels. We’ve expanded on this documentation by adding a comprehensive new vignette titled <a href="https://chop-cgtinformatics.github.io/REDCapTidieR/articles/labelled.html">“Using Labelled Vectors with REDCapTidieR”</a> written to guide you through leveraging labelled vectors to maintain meaningful metadata in your datasets, enhancing both readability and usability.</p>
+</section>
+<section id="new-supertibble-column-information" class="level2">
+<h2 class="anchored" data-anchor-id="new-supertibble-column-information">🔎 New Supertibble Column Information</h2>
+<p>The supertibble output now includes a new metadata column, <code>form_complete_pct</code>, which shows the percentage of a given instrument that has a form status marked as “Complete” (green), giving you a quick overview of your data completeness.</p>
+<p><code>event_name</code> has now been added to the columns under the <code>redcap_events</code> metadata column, displaying the event label for each REDCap event in longitudinal projects.</p>
+<p>For projects with repeating events, a new <code>repeat_type</code> column has been added to display whether the associated instrument under <code>redcap_events</code> is a “repeat_together”, “repeat_separate”, or “nonrepeating” event.</p>
+</section>
+<section id="until-the-next-update" class="level2">
+<h2 class="anchored" data-anchor-id="until-the-next-update">👋 Until the Next Update</h2>
+<p>Thank you for being a part of the REDCapTidieR user base! Your feedback is always appreciated and drives us to keep making a better package! 🎉</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
